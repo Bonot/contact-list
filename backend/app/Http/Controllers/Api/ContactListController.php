@@ -127,12 +127,11 @@ class ContactListController extends Controller
 
     private function getPersonWhithContacts(int $personId)
     {
-        return Person::with('contacts.contactType')
-            ->where('id', $personId)
-            ->get()
-            ->map(function ($person){
-                return $this->makeContactResponse($person);
-            });
+        $person = Person::with('contacts.contactType')
+        ->where('id', $personId)
+        ->first();
+
+        return $this->makeContactResponse($person);
     }
 
     private function makeContactResponse(Person $person)
