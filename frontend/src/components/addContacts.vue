@@ -11,12 +11,7 @@
     <div v-for="(contact, index) in contacts" :key="index">
       <div class="row g-3 my-2 contact-list-tab" :id="'contact-list-' + index">
         <div class="col-md-5">
-          <select class="form-select" v-model="contact.contact_type_id">
-            <option value="0">Selecione o tipo de contato</option>
-            <option value="122">Email</option>
-            <option value="123">Telefone</option>
-            <option value="124">WhatAapp</option>
-          </select>
+          <contact-type-select v-model="contact.contact_type_id"></contact-type-select>
         </div>
         <div class="col-md-5">
           <input type="text" class="form-control" placeholder="Contato" aria-label="Last name" v-model="contact.value">
@@ -28,9 +23,15 @@
     </div>
   </div>
 </template>
+
 <script>
+import ContactTypeSelect from './ContactTypeSelect.vue';
+
 export default {
   props: ['dataContacts'],
+  components: {
+    ContactTypeSelect,
+  },
   data() {
     return {
       contacts: this.dataContacts || [

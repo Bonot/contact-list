@@ -6,7 +6,8 @@ export default defineConfig({
   plugins: [vue()],
   server: {
     proxy: {
-      '/api/contacts': 'http://localhost:90',
+      '/api/contacts-list': 'http://localhost:90',
+      '/api/contacts-list/types': 'http://localhost:90',
     }
   }
 })

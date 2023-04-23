@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactListRequest;
 use App\Models\Contact;
+use App\Models\ContactType;
 use App\Models\Person;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -37,6 +38,12 @@ class ContactListController extends Controller
         }
 
         return $response;
+    }
+
+    public function getContactTypes()
+    {
+        return ContactType::query()
+            ->get();
     }
 
     public function store(ContactListRequest $request)
