@@ -72,6 +72,7 @@
 <script>
 import axios from 'axios'
 import Pagination from '../../components/Pagination.vue';
+import Cookie from 'js-cookie'
 
 export default {
     name: 'contacts-list',
@@ -86,14 +87,22 @@ export default {
             limit: 10,
             total: 0,
             limitContacts: 1,
+            token : '',
+            config : {}
         }
     },
     mounted(){
+        this.token = Cookie.get('token')
+        this.config = {
+            headers: {
+                Authorization: `Bearer ${this.token}`
+            }
+        }
         this.getContactsList();
     },
     methods: {
         getContactsList() {
-            axios.get(`/api/contacts-list?page=${this.offset}&limit=${this.limit}&query=${this.searchQuery}`)
+            axios.get(`/api/contacts-list?page=${this.offset}&limit=${this.limit}&query=${this.searchQuery}`, this.config)
                 .then(response => {
                     this.persons = response.data.data;
                     this.total = response.data.total;

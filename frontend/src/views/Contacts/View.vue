@@ -41,6 +41,7 @@
 import axios from 'axios'
 import addContacts from '../../components/addContacts.vue';
 import router from '../../router';
+import Cookie from 'js-cookie'
 
 export default {
     name: 'contactCreate',
@@ -56,15 +57,23 @@ export default {
                     contacts: [],
                 }
             },
+            token : '',
+            config : {}
         }
     },
     mounted() {
+        this.token = Cookie.get('token')
+        this.config = {
+            headers: {
+                Authorization: `Bearer ${this.token}`
+            }
+        }
         this.personId = this.$route.params.id;
         this.getContact(this.personId);
     },
     methods: {
         getContact(personId) {
-            axios.get(`/api/contacts-list/${personId}`)
+            axios.get(`/api/contacts-list/${personId}`, this.config)
                 .then(response => {
                     this.model.person = response.data;
                 })
