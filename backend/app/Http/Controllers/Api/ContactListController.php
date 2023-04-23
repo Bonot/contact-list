@@ -6,15 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactListRequest;
 use App\Models\Contact;
 use App\Models\Person;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ContactListController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $persons = Person::with('contacts.contactType')
             ->orderBy('name')
-            ->paginate(10);
+            ->paginate($request->get('limit') ?: 10);
 
         $persons->getCollection()->transform(function ($person) {
             return $this->makeContactResponse($person);
