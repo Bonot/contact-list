@@ -88,7 +88,13 @@ export default {
                 });
         },
         deleteContact(personId) {
-            //  TO DO
+            if (confirm('Você tem certeza que gostaria de excluir esse registro?')) {
+                axios.delete(`/api/contacts-list/${personId}`)
+                    .then(response => {
+                        alert('Registro removido com sucesso');
+                        location.reload();
+                    });
+            }
         },
         changePage(value) {
             this.offset = value;
