@@ -45,17 +45,17 @@ class ContactListRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Informe um nome',
-            'name.string' => 'O nome deve ser uma string',
+            'name.required' => 'Informe um nome.',
+            'name.string' => 'O nome deve ser uma string.',
 
-            'contacts.required' => 'Informe um contato.',
+            'contacts.required' => 'Informe pelo menos um contato.',
             'contacts.array' => 'Os contatos devem ser um array.',
 
             'contacts.*.contact_type_id.required' => 'Informe todos os tipos de contato.',
             'contacts.*.contact_type_id.integer' => 'Tipo de contato inválido.',
             'contacts.*.contact_type_id.exists' => 'Tipo de contato inválido.',
 
-            'contacts.*.value.required' => 'Informe o contato',
+            'contacts.*.value.required' => 'Informe o contato.',
             'contacts.*.value.string' => 'O contato deve ser uma string.',
         ];
     }
