@@ -22,9 +22,16 @@
                         <td>{{ person.id }}</td>
                         <td>{{ person.name }}</td>
                         <td>
-                            <p v-for="(contact, index) in person.contacts" :key="index">
+                            <span v-for="(contact, index) in person.contacts.slice(0,this.limitContacts)" :key="index">
                                 {{contact.contact_type}}: {{contact.value}}
-                            </p>
+                            </span>
+                            <RouterLink
+                                v-if="person.contacts.length > this.limitContacts"
+                                :to="{ path: '/contatos/' + person.id + '/ver' }"
+                                style="font-size:12px"
+                                class="link-success link-offset-2 link-underline-opacity-0">
+                                <br />Mais {{person.contacts.length - this.limitContacts}} contato(s)
+                            </RouterLink>
                         </td>
                         <td class="w-25 text-end">
                             <RouterLink :to="{ path: '/contatos/' + person.id + '/ver' }" class="btn btn-primary">Ver</RouterLink>
@@ -66,6 +73,7 @@ export default {
             offset: 0,
             limit: 10,
             total: 0,
+            limitContacts: 1,
         }
     },
     mounted(){
