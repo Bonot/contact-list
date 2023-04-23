@@ -15,6 +15,10 @@ class ContactListController extends Controller
     public function index(Request $request)
     {
         $persons = Person::with('contacts.contactType')
+            ->where('name', 'LIKE', '%' . $request->get('query') . '%')
+            ->orWhereHas('contacts', function($query) use ($request) {
+                $query->where('value', 'LIKE', '%' . $request->get('query') . '%');
+            })
             ->orderBy('name')
             ->paginate($request->get('limit') ?: 10);
 

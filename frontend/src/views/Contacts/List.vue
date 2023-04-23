@@ -8,6 +8,17 @@
             </h4>
         </div>
         <div class="card-body">
+            <div class="row g-3 my-2">
+                <div class="col-md-8">
+                    <input class="form-control" v-model="searchQuery" placeholder="Buscar contato" aria-label="Search">
+                </div>
+                <div class="d-grid gap-2 col-md-2 mx-auto">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" @click="getContactsList">Filtrar</button>
+                </div>
+                <div class="d-grid gap-2 col-md-2 mx-auto">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" @click="clearFilter">Limpar filtros</button>
+                </div>
+            </div>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -70,6 +81,7 @@ export default {
     data() {
         return {
             persons: [],
+            searchQuery: '',
             offset: 0,
             limit: 10,
             total: 0,
@@ -81,7 +93,7 @@ export default {
     },
     methods: {
         getContactsList() {
-            axios.get(`/api/contacts-list?page=${this.offset}&limit=${this.limit}`)
+            axios.get(`/api/contacts-list?page=${this.offset}&limit=${this.limit}&query=${this.searchQuery}`)
                 .then(response => {
                     this.persons = response.data.data;
                     this.total = response.data.total;
@@ -100,6 +112,10 @@ export default {
             this.offset = value;
             this.getContactsList();
         },
+        clearFilter() {
+            this.searchQuery = '';
+            this.getContactsList();
+        }
     }
 }
 </script>
