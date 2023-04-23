@@ -8,6 +8,7 @@ export default defineConfig({
     proxy: {
       '/api/contacts-list': 'http://localhost:90',
       '/api/contacts-list/types': 'http://localhost:90',
+      '/api/login': 'http://localhost:90'
     }
   }
 })

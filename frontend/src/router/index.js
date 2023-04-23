@@ -4,10 +4,16 @@ import ContactsList from '../views/Contacts/List.vue'
 import ContactsCreate from '../views/Contacts/Create.vue'
 import ContactsEdit from '../views/Contacts/Edit.vue'
 import ContactsView from '../views/Contacts/View.vue'
+import Login from '../views/Login.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: '/login',
+      name: 'login',
+      component: Login,
+    },
     {
       path: '/',
       name: 'home',
