@@ -42,7 +42,7 @@ export default {
     }
   },
   watch: {
-    value: function(newVal) {
+    dataContacts: function(newVal) {
       this.contacts = newVal;
     }
   },
