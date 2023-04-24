@@ -19,13 +19,33 @@ class ContactFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return array_merge($attributes, [
-                'contact_type_id' => ContactType::where('type','E-mail')->first()->getKey(),
+                'contact_type_id' => ContactType::factory()->create(['type' =>'E-mail']),
                 'value' => fake()->unique()->email(),
             ]);
         });
     }
 
     public function phone(): self
+    {
+        return $this->state(function (array $attributes) {
+            return array_merge($attributes, [
+                'contact_type_id' => ContactType::factory()->create(['type' =>'Telefone']),
+                'value' => fake()->unique()->phoneNumber(),
+            ]);
+        });
+    }
+
+    public function emailForSeed(): self
+    {
+        return $this->state(function (array $attributes) {
+            return array_merge($attributes, [
+                'contact_type_id' => ContactType::where('type','E-mail')->first()->getKey(),
+                'value' => fake()->unique()->email(),
+            ]);
+        });
+    }
+
+    public function phoneForSeed(): self
     {
         return $this->state(function (array $attributes) {
             return array_merge($attributes, [
