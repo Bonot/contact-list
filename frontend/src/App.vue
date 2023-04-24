@@ -1,5 +1,18 @@
-<script>
+<script setup>
+import { computed, ref } from 'vue'
 import { RouterLink, RouterView, useRouter } from 'vue-router'
+import Cookie from 'js-cookie'
+import { useSystemStore } from './store/system'
+
+const store = useSystemStore();
+const router = useRouter();
+const authenticated = computed(() => store.getAuthenticated)
+const logOut = () => {
+  Cookie.remove('token');
+  store.authenticated = false;
+  router.push('/');
+}
+
 </script>
 
 <template>
@@ -15,8 +28,14 @@ import { RouterLink, RouterView, useRouter } from 'vue-router'
             <li class="nav-item">
               <RouterLink class="nav-link" aria-current="page" to="/">Home</RouterLink>
             </li>
-            <li class="nav-item">
+            <li v-if="authenticated" class="nav-item">
               <RouterLink class="nav-link" aria-current="page" to="/contatos">Contatos</RouterLink>
+            </li>
+            <li v-if="!authenticated" class="nav-item">
+              <RouterLink class="nav-link" aria-current="page" to="/login">Log in</RouterLink>
+            </li>
+            <li v-else class="nav-item">
+              <RouterLink class="nav-link" @click="logOut" aria-current="page" to="/login">Log out</RouterLink>
             </li>
           </ul>
         </div>

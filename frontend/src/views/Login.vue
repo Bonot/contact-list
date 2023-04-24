@@ -31,8 +31,10 @@
 import axios from 'axios'
 import Cookie from 'js-cookie'
 import { ref } from 'vue'
+import { useSystemStore } from '../store/system'
 import { useRouter } from 'vue-router'
 
+const store = useSystemStore();
 const router = useRouter();
 const errorList = ref('');
 const login = ref({
@@ -51,6 +53,7 @@ const login = ref({
                 errorList.value = response.data.errors;
             } else {
                 Cookie.set('token', response.data);
+                store.authenticated = true;
                 router.push('/');
             }
         })
