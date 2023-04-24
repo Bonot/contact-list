@@ -31,4 +31,12 @@ class Person extends Model
     {
         return $this->hasMany(Contact::class);
     }
+
+    public static function boot() {
+        parent::boot();
+
+        static::deleting(function($person) {
+             $person->contacts()->delete();
+        });
+    }
 }
