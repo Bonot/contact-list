@@ -110,7 +110,7 @@ export default {
         },
         deleteContact(personId) {
             if (confirm('Você tem certeza que gostaria de excluir esse registro?')) {
-                axios.delete(`/api/contacts-list/${personId}`)
+                axios.delete(`/api/contacts-list/${personId}`, this.config)
                     .then(response => {
                         alert('Registro removido com sucesso');
                         location.reload();
