@@ -14,19 +14,16 @@ class ContactListSeeder extends Seeder
      */
     public function run(): void
     {
-        $person1 = Person::factory()->create();
-        $person2 = Person::factory()->create();
+        for ($i=0; $i < 15; $i++) {
+            $person = Person::factory()->create();
 
-        Contact::factory()->email()->create([
-            'person_id' => $person1->id
-        ]);
+            Contact::factory()->emailForSeed()->create([
+                'person_id' => $person->id
+            ]);
 
-        Contact::factory()->phone()->create([
-            'person_id' => $person1->id
-        ]);
-
-        Contact::factory()->phone()->create([
-            'person_id' => $person2->id
-        ]);
+            Contact::factory()->phoneForSeed()->create([
+                'person_id' => $person->id
+            ]);
+        }
     }
 }
