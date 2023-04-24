@@ -117,7 +117,7 @@ class ContactListController extends Controller
             DB::commit();
 
             return response()->json([
-                'message' => 'Contato criado com sucesso!',
+                'message' => 'Contato atualizado com sucesso!',
                 'data' => $this->getPersonWhithContacts($person->getKey()),
             ], 201);
         } catch (\Throwable $th) {
@@ -133,7 +133,7 @@ class ContactListController extends Controller
         $pessoa = Person::findOrFail($person);
         $pessoa->delete();
 
-        return response()->json(['message' => 'Contato removido com sucesso']);
+        return response()->json(['message' => 'Contato removido com sucesso'], 204);
     }
 
     private function getPersonWhithContacts(int $personId)
